@@ -4,6 +4,8 @@
 
 ### Integrantes
 - 51489 - Giordano Paulina
+- 53743 - Farabollini Camila
+- 43833 - Romagnoli Julieta
 
 ### Repositorios
 - frontend app: https://github.com/PaulinaGiordano/Centro-Estetica-Frontend
