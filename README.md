@@ -6,8 +6,8 @@
 - 51489 - Giordano Paulina
 
 ### Repositorios
-- frontend app: https://github.com/TU_USUARIO/centro-estetica-frontend
-- backend app: https://github.com/TU_USUARIO/centro-estetica-backend
+- frontend app: https://github.com/PaulinaGiordano/Centro-Estetica-Frontend
+- backend app: https://github.com/PaulinaGiordano/Centro-Estetica-Backend
 
 ---
 
