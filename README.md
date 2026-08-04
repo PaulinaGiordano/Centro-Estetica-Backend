@@ -20,7 +20,7 @@ Sistema de gestión para un centro de estética que permite administrar clientes
 
 ## Modelo
 
-![Modelo de dominio](Modelo.png)
+![Modelo de dominio](docs/Modelo.png)
 
 ---
 
