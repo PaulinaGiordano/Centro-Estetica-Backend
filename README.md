@@ -44,4 +44,4 @@ Sistema de gestión para un centro de estética que permite administrar clientes
 | Req | Detalle |
 | :--- | :--- |
 | **CRUD** | 1. CRUD Cliente<br>2. CRUD Profesional<br>3. CRUD Tratamiento<br>4. CRUD Horarios<br>5. CRUD Turno |
-| **CUU/Epic** | 1. Reservar Turno /2. Cancelar o reprogramar turno |
+| **CUU/Epic** | 1. Reservar Turno <br>2. Cancelar o reprogramar turno |
