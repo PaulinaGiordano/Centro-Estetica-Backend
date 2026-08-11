@@ -32,8 +32,8 @@ Sistema de gestión para un centro de estética que permite administrar clientes
 
 | Req | Detalle |
 | :--- | :--- |
-| **CRUD simple** | 1. CRUD Cliente<br>2. CRUD Tratamiento |
-| **CRUD dependiente** | 1. CRUD Turno {depnde de} Cliente, Profesional y Tratamiento |
+| **CRUD simple** | 1. CRUD Profesional<br>2. CRUD Tratamiento |
+| **CRUD dependiente** | 1. CRUD Horario {depnde de} Profesional y Tratamiento |
 | **Listado + detalle** | 1. Listado de tratamientos, muestra nombre, descripción y duración => detalle CRUD Tratamiento<br>2. Listado de profesionales, muestra nombre, apellido y especialidad => detalle CRUD Profesional<br>3. Listado de turnos filtrado por fecha o profesional, muestra fecha, hora y estado => detalle muestra todos los atributos del turno y sus relaciones (cliente, profesional y tratamiento) |
 | **CUU/Epic** | 1. Reservar turno para un cliente |
 
@@ -44,4 +44,4 @@ Sistema de gestión para un centro de estética que permite administrar clientes
 | Req | Detalle |
 | :--- | :--- |
 | **CRUD** | 1. CRUD Cliente<br>2. CRUD Profesional<br>3. CRUD Tratamiento<br>4. CRUD Horarios<br>5. CRUD Turno |
-| **CUU/Epic** | 1. Autenticación de usuarios / Login con control de niveles de acceso<br>2. Consultar disponibilidad de un profesional según tratamiento, fecha y horario para la reserva de turnos<br>3. Cancelar o reprogramar turno |
+| **CUU/Epic** | 1. Reservar Turno /2. Cancelar o reprogramar turno |
