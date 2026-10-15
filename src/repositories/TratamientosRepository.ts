@@ -14,8 +14,7 @@ export class TratamientosRepository {
 
   async borrar (id:number) {
     const [resultado] = await pool.query(
-      'DELETE FROM tratamiento WHERE idTratamiento =?'
-      [id]
+      'DELETE FROM tratamiento WHERE idTratamiento =?', [id]
     );
     return resultado;
   }
