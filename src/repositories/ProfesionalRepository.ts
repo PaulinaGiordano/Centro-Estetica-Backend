@@ -38,6 +38,16 @@ export class ProfesionalRepository {
       [nombre, apellido, imagen, idEspecialidad, id]
     );
   }
+
+  async findByTratamiento(idTratamiento: number) {
+    const [profesionales] = await pool.query(
+      `SELECT p.* FROM profesional p, tratamiento t
+      WHERE p.idEspecialidad = t.idEspecialidad
+      AND t.idTratamiento = ?`,
+      [idTratamiento]
+    );
+    return profesionales as Profesional[];
+  }
 }
 
 

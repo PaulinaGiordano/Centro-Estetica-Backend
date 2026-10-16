@@ -34,6 +34,11 @@ router.post('/', async (req, res) => {
   res.status(201).json({ mensaje: 'Profesional creado' });
 });
 
+router.get('/tratamiento/:id', async (req, res) => {
+  const profesionales = await repo.findByTratamiento(Number(req.params.id));
+  res.json(profesionales);
+});
+
 router.get('/:id', async (req, res) => {
   const id = Number(req.params.id);
   const profesional = await repo.findById(id);
@@ -60,5 +65,7 @@ router.put('/:id', async (req, res) => {
 
   res.json({ mensaje: 'Profesional modificado' });
 });
+
+
 
 export default router;
