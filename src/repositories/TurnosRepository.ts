@@ -24,4 +24,26 @@ export class TurnosRepository {
       ['Pendiente', fecha, hora, observaciones, idProfesional, idTratamiento, idCliente]
     );
   }
+
+    async findHorasOcupadas(idProfesional: number, fecha: string) {
+    const [turnos] = await pool.query(
+      'SELECT hora FROM turno WHERE idProfesional = ? AND fecha = ?',
+      [idProfesional, fecha]
+    );
+    return turnos as any[];
+  }
+    async borrar(id: number) {
+    const [resultado] = await pool.query(
+      'DELETE FROM turno WHERE idTurno = ?',
+      [id]
+    );
+    return resultado;
+  }
+
+  async cambiarEstado(id: number, estado: string) {
+    await pool.query(
+      'UPDATE turno SET estado = ? WHERE idTurno = ?',
+      [estado, id]
+    );
+  }
 }

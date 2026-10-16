@@ -48,6 +48,14 @@ export class ProfesionalRepository {
     );
     return profesionales as Profesional[];
   }
+
+  async findHorarios(idProfesional: number, diaSemana: string) {
+    const [horarios] = await pool.query(
+      'SELECT hora_inicio, hora_fin FROM horarios WHERE idProfesional = ? AND dia_semana = ?',
+      [idProfesional, diaSemana]
+    );
+    return horarios as any[];
+  }
 }
 
 
