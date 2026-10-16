@@ -38,6 +38,24 @@ export class ProfesionalRepository {
       [nombre, apellido, imagen, idEspecialidad, id]
     );
   }
+
+  async findByTratamiento(idTratamiento: number) {
+    const [profesionales] = await pool.query(
+      `SELECT p.* FROM profesional p, tratamiento t
+      WHERE p.idEspecialidad = t.idEspecialidad
+      AND t.idTratamiento = ?`,
+      [idTratamiento]
+    );
+    return profesionales as Profesional[];
+  }
+
+  async findHorarios(idProfesional: number, diaSemana: string) {
+    const [horarios] = await pool.query(
+      'SELECT hora_inicio, hora_fin FROM horarios WHERE idProfesional = ? AND dia_semana = ?',
+      [idProfesional, diaSemana]
+    );
+    return horarios as any[];
+  }
 }
 
 
