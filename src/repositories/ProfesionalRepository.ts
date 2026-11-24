@@ -1,61 +1,69 @@
-import pool from '../db';
-import { Profesional } from '../models/Profesional';
+import sequelize from "../sequelize";
+import { Profesional } from "../models/Profesional";
+import { Especialidad } from "../models/Especialidad";
+import { Horario } from "../models/Horario";
+import { Tratamiento } from "../models/Tratamiento";
 
 export class ProfesionalRepository {
-
   async findAll() {
-    const [profesionales] = await pool.query(
-      `SELECT p.*, e.nombre AS especialidad
-       FROM profesional p
-       JOIN especialidad e ON p.idEspecialidad = e.idEspecialidad`
-    );
-    return profesionales as Profesional[];
+    return await Profesional.findAll({
+      include: [{ model: Especialidad, attributes: [], required: true }],
+      attributes: {
+        include: [[sequelize.col("Especialidad.nombre"), "especialidad"]],
+      },
+      raw: true,
+    });
   }
 
   async borrar(id: number) {
-    await pool.query('DELETE FROM horarios WHERE idProfesional = ?', [id]);
-    await pool.query('DELETE FROM profesional WHERE idProfesional = ?', [id]);
+    await Horario.destroy({ where: { idProfesional: id } });
+    await Profesional.destroy({ where: { idProfesional: id } });
   }
 
-  async crear(nombre: string, apellido: string, imagen: string | null, idEspecialidad: number) {
-    await pool.query(
-      'INSERT INTO profesional (nombre, apellido, imagen, idEspecialidad) VALUES (?, ?, ?, ?)',
-      [nombre, apellido, imagen, idEspecialidad]
-    );
+  async crear(
+    nombre: string,
+    apellido: string,
+    imagen: string | null,
+    idEspecialidad: number,
+  ) {
+    await Profesional.create({ nombre, apellido, imagen, idEspecialidad });
   }
 
   async findById(id: number) {
-    const [profesionales] = await pool.query(
-      'SELECT * FROM profesional WHERE idProfesional = ?', [id]
-    );
-    const lista = profesionales as Profesional[];
-    return lista[0];
+    return await Profesional.findByPk(id);
   }
 
-  async modificar(id: number, nombre: string, apellido: string, imagen: string | null, idEspecialidad: number) {
-    await pool.query(
-      'UPDATE profesional SET nombre = ?, apellido = ?, imagen = ?, idEspecialidad = ? WHERE idProfesional = ?',
-      [nombre, apellido, imagen, idEspecialidad, id]
+  async modificar(
+    id: number,
+    nombre: string,
+    apellido: string,
+    imagen: string | null,
+    idEspecialidad: number,
+  ) {
+    await Profesional.update(
+      { nombre, apellido, imagen, idEspecialidad },
+      { where: { idProfesional: id } },
     );
   }
 
   async findByTratamiento(idTratamiento: number) {
-    const [profesionales] = await pool.query(
-      `SELECT p.* FROM profesional p, tratamiento t
-      WHERE p.idEspecialidad = t.idEspecialidad
-      AND t.idTratamiento = ?`,
-      [idTratamiento]
-    );
-    return profesionales as Profesional[];
+    const tratamiento = (await Tratamiento.findByPk(idTratamiento, {
+      raw: true,
+    })) as any;
+    if (!tratamiento) {
+      return [];
+    }
+    return await Profesional.findAll({
+      where: { idEspecialidad: tratamiento.idEspecialidad },
+    });
   }
 
   async findHorarios(idProfesional: number, diaSemana: string) {
-    const [horarios] = await pool.query(
-      'SELECT hora_inicio, hora_fin FROM horarios WHERE idProfesional = ? AND dia_semana = ?',
-      [idProfesional, diaSemana]
-    );
+    const horarios = await Horario.findAll({
+      attributes: ["hora_inicio", "hora_fin"],
+      where: { idProfesional, dia_semana: diaSemana },
+      raw: true,
+    });
     return horarios as any[];
   }
 }
-
-

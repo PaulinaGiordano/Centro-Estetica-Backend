@@ -1,9 +1,7 @@
-import pool from '../db';
+import { Especialidad } from "../models/Especialidad";
 
 export class EspecialidadRepository {
-
   async findAll() {
-    const [especialidades] = await pool.query('SELECT * FROM especialidad');
-    return especialidades;
+    return await Especialidad.findAll();
   }
 }
