@@ -1,3 +1,4 @@
+import jwt from "jsonwebtoken";
 import { Router } from "express";
 import { AdminRepository } from "../repositories/AdminRepository";
 import bcrypt from "bcryptjs";
@@ -24,7 +25,13 @@ router.post("/login", async (req, res) => {
     return res.status(401).json({ mensaje: "Email o contraseña incorrectos" });
   }
 
-  res.json({ nombre: admin.nombre, email: admin.email });
+  const token = jwt.sign(
+    { idAdmin: admin.idAdmin, rol: "admin" },
+    process.env.JWT_SECRET as string,
+    { expiresIn: "2h" },
+  );
+
+  res.json({ token, nombre: admin.nombre, email: admin.email });
 });
 
 export default router;
